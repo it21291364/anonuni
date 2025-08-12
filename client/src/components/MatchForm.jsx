@@ -1,7 +1,7 @@
 import React from 'react'
 import { SERVER_URL } from '../api'
 
-export default function MatchForm({ onStart }){
+export default function MatchForm({ onStart, disabled }){
   const [universities, setUniversities] = React.useState([])
   const [university, setUniversity] = React.useState("")
   const [interests, setInterests] = React.useState("")
@@ -21,17 +21,17 @@ export default function MatchForm({ onStart }){
     <form onSubmit={submit} className="row cols-2">
       <div>
         <label>University</label>
-        <select value={university} onChange={e=>setUniversity(e.target.value)} required>
+        <select value={university} onChange={e=>setUniversity(e.target.value)} required disabled={disabled}>
           <option value="">Select your university…</option>
           {universities.map(u=> <option key={u} value={u}>{u}</option>)}
         </select>
       </div>
       <div>
         <label>Interests (comma separated)</label>
-        <input className="input" placeholder="AI, football, music" value={interests} onChange={e=>setInterests(e.target.value)} />
+        <input className="input" placeholder="AI, football, music" value={interests} onChange={e=>setInterests(e.target.value)} disabled={disabled} />
       </div>
       <div style={{gridColumn:'1 / -1', display:'flex', gap:8}}>
-        <button className="btn" disabled={loading}>Find partner</button>
+        <button className="btn" disabled={loading || disabled}>Find partner</button>
         <span className="small">We do not store chats. Reload leaves the chat.</span>
       </div>
     </form>
